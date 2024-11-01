@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_event_manager/navigation/main_router.dart';
+import 'package:go_router/go_router.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+class MainPage extends StatefulWidget {
+  final Widget child;
 
-  final String title;
+  const MainPage({super.key, required this.child});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    const Center(child: Text('Events')), // todo
-    const Center(child: Text('Favourite')), // todo
+  final List<String> _routes = [
+    Destination.routeEventList,
+    Destination.routeFavourite,
   ];
 
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
+    context.go(_routes[index]);
   }
 
   @override
@@ -28,9 +31,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text("App"),
       ),
-      body: _pages[_currentIndex],
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onTabTapped,
