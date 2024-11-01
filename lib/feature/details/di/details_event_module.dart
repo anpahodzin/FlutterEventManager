@@ -1,6 +1,6 @@
 import 'package:flutter_event_manager/feature/details/bloc/details_event_bloc.dart';
-import 'package:flutter_event_manager/feature/event/domain/event_repository.dart';
-import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/event_repository.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 import 'package:get_it/get_it.dart';
 
 class DetailsEventModule {

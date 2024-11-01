@@ -1,7 +1,7 @@
-import 'package:flutter_event_manager/feature/event/data/cache/event_cache.dart';
-import 'package:flutter_event_manager/feature/event/data/remote/event_api.dart';
-import 'package:flutter_event_manager/feature/event/domain/event_repository.dart';
-import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
+import 'package:flutter_event_manager/feature/event_list/data/cache/event_cache.dart';
+import 'package:flutter_event_manager/feature/event_list/data/remote/event_api.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/event_repository.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 
 class EventDataRepository extends EventRepository {
   final EventApi _remote;

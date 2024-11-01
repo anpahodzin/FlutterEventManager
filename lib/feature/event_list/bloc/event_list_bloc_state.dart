@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 
 class EventListBlocState extends Equatable {
   const EventListBlocState({

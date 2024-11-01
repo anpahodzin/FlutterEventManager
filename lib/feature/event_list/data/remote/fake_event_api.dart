@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_event_manager/feature/event/data/remote/event_api.dart';
-import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
+import 'package:flutter_event_manager/feature/event_list/data/remote/event_api.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 
 import 'dto/event_dto.dart';
 

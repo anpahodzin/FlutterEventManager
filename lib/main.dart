@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_event_manager/core/di/MainModule.dart';
+import 'package:flutter_event_manager/core/di/main_module.dart';
 
 import 'navigation/main_router.dart';
 

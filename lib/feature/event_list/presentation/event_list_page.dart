@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
-import 'package:flutter_event_manager/feature/event/list/bloc/event_list_bloc.dart';
-import 'package:flutter_event_manager/widget/event_card_widget.dart';
+import 'package:flutter_event_manager/feature/event_list/bloc/event_list_bloc.dart';
+import 'package:flutter_event_manager/feature/event_list/presentation/event_card_widget.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
