@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_event_manager/presenter/home/home_page.dart';
+import 'package:flutter_event_manager/feature/home/view/home_page.dart';
 
 void main() {
   runApp(const MyApp());
