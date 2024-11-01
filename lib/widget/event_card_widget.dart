@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../feature/domain/model/event.dart';
+import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
 
 class EventCardWidget extends StatelessWidget {
   const EventCardWidget({
@@ -14,8 +13,8 @@ class EventCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 2.0,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), //todo
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      //todo
       clipBehavior: Clip.hardEdge,
       color: Colors.white,
       child: _eventItem(
@@ -43,5 +42,4 @@ class EventCardWidget extends StatelessWidget {
       ),
     );
   }
-
 }
