@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "title": "Flutter Workshop",
+    "location": "New York City",
+    "date": "2024-11-10T14:00:00Z",
+    "description": "A comprehensive workshop on building Flutter apps.",
+    "isFavorite": false
+  },
+  {
+    "id": "2",
+    "title": "Tech Conference 2024",
+    "location": "San Francisco",
+    "date": "2024-12-05T09:00:00Z",
+    "description": "Join industry leaders to discuss the latest in tech.",
+    "isFavorite": true
+  },
+  {
+    "id": "3",
+    "title": "Web Development Bootcamp",
+    "location": "Chicago",
+    "date": "2024-10-15T10:00:00Z",
+    "description": "Learn the essentials of web development in a 3-day bootcamp.",
+    "isFavorite": false
+  },
+  {
+    "id": "4",
+    "title": "AI & Machine Learning Summit",
+    "location": "Los Angeles",
+    "date": "2024-11-20T13:00:00Z",
+    "description": "Explore the advancements in AI and machine learning with hands-on sessions.",
+    "isFavorite": true
+  },
+  {
+    "id": "5",
+    "title": "Mobile App Hackathon",
+    "location": "Seattle",
+    "date": "2024-11-30T08:00:00Z",
+    "description": "Showcase your mobile app development skills in this 24-hour hackathon.",
+    "isFavorite": false
+  }
+]

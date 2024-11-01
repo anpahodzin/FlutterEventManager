@@ -4,7 +4,7 @@ class EventDto {
   final String id;
   final String title;
   final String location;
-  final DateTime date;
+  final String date;
   final String description;
   final bool isFavorite;
 
@@ -32,7 +32,7 @@ class EventDto {
         id: id,
         title: title,
         location: location,
-        date: date,
+        date: DateTime.parse(date),
         description: description,
         isFavorite: isFavorite,
       );

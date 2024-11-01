@@ -15,7 +15,6 @@ class EventDataRepository extends EventRepository {
 
   @override
   Future<List<Event>> getRemoteEvents() async {
-
     final cache = _cache[null];
     if (cache != null) {
       return cache;
