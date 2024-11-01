@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
 
 class EventCardWidget extends StatelessWidget {
+  final Event _event;
+  final Function(Event) _onItemTapped;
+
   const EventCardWidget({
     super.key,
     required Event event,
-  }) : _event = event;
-
-  final Event _event;
+    required Function(Event) onItemTapped,
+  })  : _event = event,
+        _onItemTapped = onItemTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class EventCardWidget extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
+      onTap: () => _onItemTapped(_event),
     );
   }
 }

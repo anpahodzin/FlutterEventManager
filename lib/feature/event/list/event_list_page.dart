@@ -3,6 +3,7 @@ import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
 import 'package:flutter_event_manager/feature/event/list/bloc/event_list_bloc.dart';
 import 'package:flutter_event_manager/widget/event_card_widget.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class EventListPage extends StatelessWidget {
@@ -34,7 +35,12 @@ class _EventListPage extends StatelessWidget {
           return ListView.builder(
             itemCount: state.eventList.length,
             itemBuilder: (context, index) {
-              return EventCardWidget(event: state.eventList[index]);
+              return EventCardWidget(
+                event: state.eventList[index],
+                onItemTapped: (event) {
+                  context.push('/details', extra: event);
+                },
+              );
             },
           );
         } else {

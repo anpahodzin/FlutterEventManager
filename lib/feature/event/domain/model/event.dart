@@ -23,4 +23,9 @@ class Event {
     required this.description,
     required this.isFavorite,
   });
+
+  @override
+  String toString() {
+    return "{id:$id, title:$title, location:$location, date:$date, description:$description, isFavorite:$isFavorite}";
+  }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_event_manager/feature/details/presentation/details_event_page.dart';
+import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
 import 'package:flutter_event_manager/feature/event/list/event_list_page.dart';
 import 'package:flutter_event_manager/feature/main/main_page.dart';
 import 'package:go_router/go_router.dart';
@@ -36,11 +38,7 @@ final GoRouter mainRouter = GoRouter(
     ),
     GoRoute(
       path: Destination.routeDetails,
-      builder: (context, state) => const Scaffold(
-        body: Center(
-          child: Text('DetailsEventPage'),
-        ),
-      ), // todo,
+      builder: (context, state) => DetailsEventPage(event: state.extra as Event?)
     ),
   ],
 );
