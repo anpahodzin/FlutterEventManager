@@ -9,7 +9,7 @@ abstract class BlocCore {
 abstract class BlocBase<S, SS, E> extends BlocCore {
   final _stateController = BehaviorSubject<S>();
   final _singleStateController = BehaviorSubject<SS?>.seeded(null);
-  final _eventController = BehaviorSubject<E>();
+  final _eventController = PublishSubject<E>();
   @protected
   final compositeSubscription = CompositeSubscription();
 

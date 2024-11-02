@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("App"),
+        title: const Text("Flutter Event Manager") //todo
       ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(

@@ -7,6 +7,8 @@
 "isFavorite": false
 */
 
+import 'package:uuid/v1.dart';
+
 class Event {
   final String id;
   final String title;
@@ -24,8 +26,54 @@ class Event {
     required this.isFavorite,
   });
 
+  Event.initial()
+      : id = const UuidV1().generate(),
+        title = "",
+        location = "",
+        date = DateTime.now(),
+        description = "",
+        isFavorite = false;
+
   @override
   String toString() {
-    return "{id:$id, title:$title, location:$location, date:$date, description:$description, isFavorite:$isFavorite}";
+    return 'Event{id: $id, title: $title, location: $location, date: $date, description: $description, isFavorite: $isFavorite}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Event &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title &&
+          location == other.location &&
+          date == other.date &&
+          description == other.description &&
+          isFavorite == other.isFavorite;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      title.hashCode ^
+      location.hashCode ^
+      date.hashCode ^
+      description.hashCode ^
+      isFavorite.hashCode;
+
+  Event copyWith({
+    String? id,
+    String? title,
+    String? location,
+    DateTime? date,
+    String? description,
+    bool? isFavorite,
+  }) {
+    return Event(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        location: location ?? this.location,
+        date: date ?? this.date,
+        description: description ?? this.description,
+        isFavorite: isFavorite ?? this.isFavorite);
   }
 }
