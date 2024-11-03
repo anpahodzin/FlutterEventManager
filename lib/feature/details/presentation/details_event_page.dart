@@ -47,7 +47,7 @@ class _DetailEventContentState extends State<DetailEventContent> {
               isEditing: state.isEditing,
               isFavorite: state.event.isFavorite,
               onSaveTap: () {
-                bloc.inEvent.add(DetailsEventBlocEvent.toggleEditMode());
+                bloc.inEvent.add(DetailsEventBlocEvent.saveEvent());
               },
               toggleEditMode: () {
                 bloc.inEvent.add(DetailsEventBlocEvent.toggleEditMode());
@@ -56,7 +56,24 @@ class _DetailEventContentState extends State<DetailEventContent> {
                 bloc.inEvent.add(DetailsEventBlocEvent.toggleFavorite());
               },
             ),
-            body: _content(state: state),
+            body: _content(
+              state: state,
+              onTitleChange: (text) {
+                bloc.inEvent.add(
+                  DetailsEventBlocEvent.updateText(title: text),
+                );
+              },
+              onDescriptionChange: (text) {
+                bloc.inEvent.add(
+                  DetailsEventBlocEvent.updateText(description: text),
+                );
+              },
+              onLocationChange: (text) {
+                bloc.inEvent.add(
+                  DetailsEventBlocEvent.updateText(location: text),
+                );
+              },
+            ),
           );
         } else {
           return const Center(child: Text(""));
@@ -105,7 +122,12 @@ class _DetailEventContentState extends State<DetailEventContent> {
     );
   }
 
-  Widget _content({required DetailsEventBlocState state}) {
+  Widget _content({
+    required DetailsEventBlocState state,
+    required Function(String) onTitleChange,
+    required Function(String) onDescriptionChange,
+    required Function(String) onLocationChange,
+  }) {
     final event = state.event;
     final isEditing = state.isEditing;
 
@@ -119,26 +141,29 @@ class _DetailEventContentState extends State<DetailEventContent> {
             children: [
               _editText(
                 isEditing: isEditing,
-                labelText: "Title", //todo
+                labelText: "Title",
+                //todo
                 initialValue: event.title,
-                onTextChanged: (text) {},
+                onTextChanged: onTitleChange,
                 style:
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               _editText(
                 isEditing: isEditing,
-                labelText: "Description", //todo
+                labelText: "Description",
+                //todo
                 initialValue: event.description,
-                onTextChanged: (text) {},
+                onTextChanged: onDescriptionChange,
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 8),
               _editText(
                 isEditing: isEditing,
-                labelText: "Location", //todo
+                labelText: "Location",
+                //todo
                 initialValue: event.location,
-                onTextChanged: (text) {},
+                onTextChanged: onLocationChange,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
               const SizedBox(height: 8),

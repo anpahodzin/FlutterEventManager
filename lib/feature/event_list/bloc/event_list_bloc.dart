@@ -14,10 +14,17 @@ class EventListBloc
   }
 
   Future<void> _init() async {
-    inState.add(const EventListBlocState(eventList: []));
+    outEvent.listen((event) {
+      event.when(toggleFavorite: (event) async {
+        await _repository
+            .updateEvent(event.copyWith(isFavorite: !event.isFavorite));
+      });
+    });
 
-    final events = await _repository.getRemoteEvents();
+    listen(_repository.getEventsStream(), (events) {
+      inState.add(EventListBlocState(eventList: events));
+    });
 
-    inState.add(EventListBlocState(eventList: events));
+    await _repository.updateRemoteEvents(forceUpdate: true); //todo remove it
   }
 }

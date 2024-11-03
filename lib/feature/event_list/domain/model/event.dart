@@ -7,9 +7,10 @@
 "isFavorite": false
 */
 
+import 'package:equatable/equatable.dart';
 import 'package:uuid/v1.dart';
 
-class Event {
+class Event extends Equatable {
   final String id;
   final String title;
   final String location;
@@ -17,7 +18,7 @@ class Event {
   final String description;
   final bool isFavorite;
 
-  Event({
+  const Event({
     required this.id,
     required this.title,
     required this.location,
@@ -35,30 +36,8 @@ class Event {
         isFavorite = false;
 
   @override
-  String toString() {
-    return 'Event{id: $id, title: $title, location: $location, date: $date, description: $description, isFavorite: $isFavorite}';
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Event &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          title == other.title &&
-          location == other.location &&
-          date == other.date &&
-          description == other.description &&
-          isFavorite == other.isFavorite;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      title.hashCode ^
-      location.hashCode ^
-      date.hashCode ^
-      description.hashCode ^
-      isFavorite.hashCode;
+  List<Object?> get props =>
+      [id, title, location, date, description, isFavorite];
 
   Event copyWith({
     String? id,

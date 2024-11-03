@@ -1,7 +1,10 @@
 import 'model/event.dart';
 
 abstract class EventRepository {
-  const EventRepository();
 
-  Future<List<Event>> getRemoteEvents();
+  Future<void> updateRemoteEvents({bool forceUpdate = false});
+
+  Stream<List<Event>> getEventsStream();
+
+  Future<void> updateEvent(Event event);
 }

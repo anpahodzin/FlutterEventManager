@@ -18,19 +18,20 @@ class DetailsEventBloc
   }
 
   Future<void> _init() async {
-    inState.add(DetailsEventBlocState(event: _event, isEditing: false));
-
     outEvent.listen((event) {
       event.when(
         toggleEditMode: () async {
           final state = await outState.first;
           inState.add(state.copyWith(isEditing: !state.isEditing));
         },
-        saveEvent: () {},
-        toggleFavorite: () {
-          _updateEventState(
-            (event) => event.copyWith(isFavorite: !event.isFavorite),
-          );
+        saveEvent: () async {
+          await _repository.updateEvent((await outState.first).event);
+        },
+        toggleFavorite: () async {
+          final event = (await outState.first).event;
+          final newEvent = event.copyWith(isFavorite: !event.isFavorite);
+          await _repository.updateEvent(newEvent);
+          inState.add(state.copyWith(event: newEvent));
         },
         updateTitle: (String title) {
           _updateEventState((event) => event.copyWith(title: title));
@@ -44,6 +45,8 @@ class DetailsEventBloc
         },
       );
     });
+
+    inState.add(DetailsEventBlocState(event: _event, isEditing: false));
   }
 
   void _updateEventState(Event Function(Event) block) async {

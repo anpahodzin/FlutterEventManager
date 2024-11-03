@@ -10,4 +10,10 @@ class EventListBlocState extends Equatable {
 
   @override
   List<Object?> get props => [eventList];
+
+  EventListBlocState copyWith({List<Event>? eventList}) {
+    return EventListBlocState(
+      eventList: eventList ?? List.from(this.eventList),
+    );
+  }
 }

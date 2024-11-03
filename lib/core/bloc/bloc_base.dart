@@ -37,8 +37,13 @@ abstract class BlocBase<S, SS, E> extends BlocCore {
     compositeSubscription.cancel();
   }
 
-  void listen<T>(Stream<T> stream, void Function(T event)? onData,
-      {Function? onError, void Function()? onDone, bool? cancelOnError}) {
+  void listen<T>(
+    Stream<T> stream,
+    void Function(T event)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) {
     compositeSubscription.add(stream.listen(onData,
         onError: onError, onDone: onDone, cancelOnError: cancelOnError));
   }

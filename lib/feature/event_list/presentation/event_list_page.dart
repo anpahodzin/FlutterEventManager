@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
 import 'package:flutter_event_manager/feature/event_list/bloc/event_list_bloc.dart';
+import 'package:flutter_event_manager/feature/event_list/bloc/event_list_bloc_event.dart';
 import 'package:flutter_event_manager/feature/event_list/presentation/event_card.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -36,8 +37,6 @@ class _EventListPage extends StatelessWidget {
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 800), //todo
               child: ListView.builder(
-                // padding:
-                //     const EdgeInsets.symmetric(vertical: 8, horizontal: 8), //todo
                 itemCount: state.eventList.length,
                 itemBuilder: (context, index) {
                   return EventCard(
@@ -46,7 +45,9 @@ class _EventListPage extends StatelessWidget {
                       context.push('/details', extra: event);
                     },
                     onFavoriteTap: (event){
-                       //todo
+                      bloc.inEvent.add(
+                        EventListBlocEvent.toggleFavorite(event: event),
+                      );
                     },
                   );
                 },

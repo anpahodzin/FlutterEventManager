@@ -1,27 +1,41 @@
-import 'package:flutter_event_manager/feature/event_list/data/cache/event_cache.dart';
 import 'package:flutter_event_manager/feature/event_list/data/remote/event_api.dart';
 import 'package:flutter_event_manager/feature/event_list/domain/event_repository.dart';
 import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
+import 'package:rxdart/rxdart.dart';
 
 class EventDataRepository extends EventRepository {
   final EventApi _remote;
-  final EventCache _cache;
+  final _eventsSubject = BehaviorSubject<List<Event>>();
 
-  const EventDataRepository({
+  EventDataRepository({
     required EventApi remote,
-    required EventCache cache,
-  })  : _remote = remote,
-        _cache = cache;
+  }) : _remote = remote {
+    _eventsSubject.value = [];
+  }
 
   @override
-  Future<List<Event>> getRemoteEvents() async {
-    final cache = _cache[null];
-    if (cache != null) {
-      return cache;
-    } else {
+  Future<void> updateRemoteEvents({bool forceUpdate = true}) async {
+    final cache = _eventsSubject.valueOrNull;
+    if (cache == null || forceUpdate) {
       final events = await _remote.getRemoteEvents();
-      _cache[null] = events;
-      return events;
+      _eventsSubject.value = events;
     }
+  }
+
+  @override
+  Stream<List<Event>> getEventsStream() {
+    return _eventsSubject.stream;
+  }
+
+  @override
+  Future<void> updateEvent(Event event) async {
+    final events = _eventsSubject.value.toList();
+    final index = events.indexWhere((it) => it.id == event.id);
+    if (index != -1) {
+      events[index] = event;
+    } else {
+      events.add(event);
+    }
+    _eventsSubject.value = List.from(events);
   }
 }

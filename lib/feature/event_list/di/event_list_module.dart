@@ -1,5 +1,4 @@
 import 'package:flutter_event_manager/feature/event_list/bloc/event_list_bloc.dart';
-import 'package:flutter_event_manager/feature/event_list/data/cache/event_cache.dart';
 import 'package:flutter_event_manager/feature/event_list/data/event_data_repository.dart';
 import 'package:flutter_event_manager/feature/event_list/data/remote/event_api.dart';
 import 'package:flutter_event_manager/feature/event_list/data/remote/fake_event_api.dart';
@@ -16,7 +15,6 @@ class EventListModule {
     getIt.registerLazySingleton<EventRepository>(
       () => EventDataRepository(
         remote: getIt<EventApi>(),
-        cache: EventCache(),
       ),
     );
     // Bloc
@@ -25,6 +23,5 @@ class EventListModule {
         repository: getIt<EventRepository>(),
       ),
     );
-
   }
 }
