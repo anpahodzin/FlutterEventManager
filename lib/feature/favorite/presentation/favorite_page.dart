@@ -3,6 +3,7 @@ import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
 import 'package:flutter_event_manager/feature/event_list/presentation/event_card.dart';
 import 'package:flutter_event_manager/feature/favorite/bloc/favorite_bloc.dart';
 import 'package:flutter_event_manager/feature/favorite/bloc/favorite_bloc_event.dart';
+import 'package:flutter_event_manager/navigation/main_router.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class _FavoritePage extends StatelessWidget {
                   return EventCard(
                     event: state.favorites[index],
                     onItemTap: (event) {
-                      context.push('/details', extra: event);
+                      context.push(Destination.routeDetails, extra: event);
                     },
                     onFavoriteTap: (event) {
                       bloc.inEvent.add(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/feature/details/presentation/details_event_page.dart';
+import 'package:flutter_event_manager/feature/download/presentation/download_page.dart';
 import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 import 'package:flutter_event_manager/feature/event_list/presentation/event_list_page.dart';
 import 'package:flutter_event_manager/feature/favorite/presentation/favorite_page.dart';
@@ -30,6 +31,13 @@ final GoRouter mainRouter = GoRouter(
             state: state,
           ),
         ),
+        GoRoute(
+          path: Destination.routeDownload,
+          pageBuilder: (context, state) => getNoTransitionPage(
+            child: const DownloadPage(),
+            state: state,
+          ),
+        ),
       ],
     ),
     GoRoute(
@@ -42,6 +50,7 @@ final GoRouter mainRouter = GoRouter(
 class Destination {
   static const String routeEventList = "/event_list";
   static const String routeFavourite = "/favourite";
+  static const String routeDownload = "/download";
 
   static const String routeDetails = "/details";
 }

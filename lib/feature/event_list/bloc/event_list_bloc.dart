@@ -24,7 +24,5 @@ class EventListBloc
     listen(_repository.getEventsStream(), (events) {
       inState.add(EventListBlocState(eventList: events));
     });
-
-    await _repository.updateRemoteEvents(forceUpdate: true); //todo remove it
   }
 }

@@ -17,6 +17,7 @@ class _MainPageState extends State<MainPage> {
   final List<String> _routes = [
     Destination.routeEventList,
     Destination.routeFavourite,
+    Destination.routeDownload,
   ];
 
   void _onTabTapped(int index) {
@@ -45,6 +46,10 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Favourite', // todo
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.download),
+            label: 'Download', // todo
           ),
         ],
       ),
