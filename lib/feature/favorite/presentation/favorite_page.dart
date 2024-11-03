@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
-import 'package:flutter_event_manager/feature/event_list/bloc/event_list_bloc.dart';
-import 'package:flutter_event_manager/feature/event_list/bloc/event_list_bloc_event.dart';
 import 'package:flutter_event_manager/feature/event_list/presentation/event_card.dart';
+import 'package:flutter_event_manager/feature/favorite/bloc/favorite_bloc.dart';
+import 'package:flutter_event_manager/feature/favorite/bloc/favorite_bloc_event.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class EventListPage extends StatelessWidget {
-  const EventListPage({super.key});
+class FavoritePage extends StatelessWidget {
+  const FavoritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      bloc: () => GetIt.instance.get<EventListBloc>(),
-      child: const _EventListPage(),
+      bloc: () => GetIt.instance.get<FavoriteBloc>(),
+      child: const _FavoritePage(),
     );
   }
 }
 
-class _EventListPage extends StatelessWidget {
-  const _EventListPage({super.key});
+class _FavoritePage extends StatelessWidget {
+  const _FavoritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<EventListBloc>();
+    var bloc = context.read<FavoriteBloc>();
 
     return StreamBuilder(
       stream: bloc.outState,
@@ -32,21 +32,21 @@ class _EventListPage extends StatelessWidget {
         var state = snapshot.data;
         debugPrint("stream ${snapshot.data}");
 
-        if (state != null && state.eventList.isNotEmpty) {
+        if (state != null && state.favorites.isNotEmpty) {
           return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 800), //todo
               child: ListView.builder(
-                itemCount: state.eventList.length,
+                itemCount: state.favorites.length,
                 itemBuilder: (context, index) {
                   return EventCard(
-                    event: state.eventList[index],
+                    event: state.favorites[index],
                     onItemTap: (event) {
                       context.push('/details', extra: event);
                     },
-                    onFavoriteTap: (event){
+                    onFavoriteTap: (event) {
                       bloc.inEvent.add(
-                        EventListBlocEvent.toggleFavorite(event: event),
+                        FavoriteBlocEvent.toggleFavorite(event: event),
                       );
                     },
                   );
@@ -55,7 +55,7 @@ class _EventListPage extends StatelessWidget {
             ),
           );
         } else {
-          return const Center(child: Text('The list is empty.')); // todo
+          return const Center(child: Text('The list is empty. Add event to favorites.')); // todo
         }
       },
     );

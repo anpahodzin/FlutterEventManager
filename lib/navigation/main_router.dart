@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/feature/details/presentation/details_event_page.dart';
 import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 import 'package:flutter_event_manager/feature/event_list/presentation/event_list_page.dart';
+import 'package:flutter_event_manager/feature/favorite/presentation/favorite_page.dart';
 import 'package:flutter_event_manager/feature/main/main_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,12 +26,7 @@ final GoRouter mainRouter = GoRouter(
         GoRoute(
           path: Destination.routeFavourite,
           pageBuilder: (context, state) => getNoTransitionPage(
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () => context.push('/details'),
-                child: const Text('Open Favorite'),
-              ),
-            ), // todo,
+            child: const FavoritePage(),
             state: state,
           ),
         ),

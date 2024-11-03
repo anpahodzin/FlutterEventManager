@@ -28,6 +28,12 @@ class EventDataRepository extends EventRepository {
   }
 
   @override
+  Stream<List<Event>> getFavoritesEventsStream() {
+    return _eventsSubject.stream
+        .map((events) => events.where((it) => it.isFavorite).toList());
+  }
+
+  @override
   Future<void> updateEvent(Event event) async {
     final events = _eventsSubject.value.toList();
     final index = events.indexWhere((it) => it.id == event.id);
