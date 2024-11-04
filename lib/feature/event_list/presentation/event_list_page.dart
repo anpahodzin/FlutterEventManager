@@ -66,6 +66,7 @@ class _EventListPage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 800), //todo
         child: ListView.builder(
+          padding: const EdgeInsets.only(bottom: 80),
           itemCount: events.length,
           itemBuilder: (context, index) {
             return EventCard(

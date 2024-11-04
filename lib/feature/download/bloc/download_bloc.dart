@@ -1,10 +1,11 @@
 import 'package:flutter_event_manager/core/bloc/bloc_base.dart';
 import 'package:flutter_event_manager/feature/download/bloc/download_bloc_event.dart';
+import 'package:flutter_event_manager/feature/download/bloc/download_bloc_single_state.dart';
 import 'package:flutter_event_manager/feature/download/bloc/download_bloc_state.dart';
 import 'package:flutter_event_manager/feature/event_list/domain/event_repository.dart';
 
-class DownloadBloc
-    extends BlocBase<DownloadBlocState, void, DownloadBlocEvent> {
+class DownloadBloc extends BlocBase<DownloadBlocState, DownloadBlocSingleState,
+    DownloadBlocEvent> {
   final EventRepository _repository;
 
   DownloadBloc({required EventRepository repository})
@@ -16,8 +17,9 @@ class DownloadBloc
     outEvent.listen((event) {
       event.when(onDownload: () async {
         inState.add(const DownloadBlocState(isLoading: true));
-        await _repository.addRemoteEvents();
+        await _repository.updateRemoteEvents();
         inState.add(const DownloadBlocState(isLoading: false));
+        inSingleState.add(SuccessDownloadEventsSingleState());
       });
     });
 

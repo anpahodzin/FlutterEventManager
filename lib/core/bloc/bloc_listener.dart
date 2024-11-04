@@ -3,8 +3,8 @@ import 'dart:async' show StreamSubscription;
 import 'package:flutter/widgets.dart';
 import 'package:provider/single_child_widget.dart';
 
-abstract class StreamBuilderBase<T> extends SingleChildStatefulWidget {
-  const StreamBuilderBase({super.key, required this.stream});
+abstract class SingleStreamBuilderBase<T> extends SingleChildStatefulWidget {
+  const SingleStreamBuilderBase({super.key, required this.stream});
 
   final Stream<T> stream;
 
@@ -15,12 +15,12 @@ abstract class StreamBuilderBase<T> extends SingleChildStatefulWidget {
   void build(BuildContext context, T? currentSummary);
 
   @override
-  SingleChildState<StreamBuilderBase<T>> createState() =>
+  SingleChildState<SingleStreamBuilderBase<T>> createState() =>
       _StreamBuilderBaseState<T>();
 }
 
 class _StreamBuilderBaseState<T>
-    extends SingleChildState<StreamBuilderBase<T>> {
+    extends SingleChildState<SingleStreamBuilderBase<T>> {
   StreamSubscription<T>? _subscription;
   late T? _summary = widget.initial();
 
@@ -32,7 +32,7 @@ class _StreamBuilderBaseState<T>
   }
 
   @override
-  void didUpdateWidget(StreamBuilderBase<T> oldWidget) {
+  void didUpdateWidget(SingleStreamBuilderBase<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.stream != widget.stream) {
       _unsubscribe();
@@ -83,7 +83,7 @@ class _StreamBuilderBaseState<T>
   }
 }
 
-class BlocStreamListener<T> extends StreamBuilderBase<T> {
+class BlocStreamListener<T> extends SingleStreamBuilderBase<T> {
   const BlocStreamListener({
     super.key,
     this.initialData,

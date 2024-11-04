@@ -14,12 +14,20 @@ class EventDataRepository extends EventRepository {
   }
 
   @override
-  Future<void> updateRemoteEvents({bool forceUpdate = true}) async {
-    final cache = _eventsSubject.valueOrNull;
-    if (cache == null || forceUpdate) {
-      final events = await _remote.getRemoteEvents();
-      _eventsSubject.value = events;
+  Future<void> updateRemoteEvents() async {
+    final events = await _remote.getRemoteEvents();
+    final cachedEvents = _eventsSubject.value.toList();
+
+    for (var remoteEvent in events) {
+      final index = cachedEvents.indexWhere((it) => it.id == remoteEvent.id);
+      if (index != -1) {
+        cachedEvents[index] = remoteEvent;
+      } else {
+        cachedEvents.add(remoteEvent);
+      }
     }
+
+    _eventsSubject.value = cachedEvents;
   }
 
   @override
@@ -48,6 +56,13 @@ class EventDataRepository extends EventRepository {
     } else {
       events.add(event);
     }
-    _eventsSubject.value = List.from(events);
+    _eventsSubject.value = events;
+  }
+
+  @override
+  Future<void> deleteEvent(Event event) async {
+    final events = _eventsSubject.value.toList();
+    events.removeWhere((it) => it.id == event.id);
+    _eventsSubject.value = events;
   }
 }
