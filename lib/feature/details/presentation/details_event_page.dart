@@ -33,7 +33,7 @@ class DetailEventContent extends StatefulWidget {
 class _DetailEventContentState extends State<DetailEventContent> {
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<DetailsEventBloc>();
+    final bloc = context.read<DetailsEventBloc>();
 
     return StreamBuilder(
       stream: bloc.outState,

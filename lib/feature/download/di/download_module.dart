@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 
 class DownloadModule {
   static Future<void> initModule() async {
-    var getIt = GetIt.instance;
+    final getIt = GetIt.instance;
 
     // Bloc
     getIt.registerFactory<DownloadBloc>(

@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 
 class EventListModule {
   static Future<void> initModule() async {
-    var getIt = GetIt.instance;
+    final getIt = GetIt.instance;
 
     // Api
     getIt.registerLazySingleton<EventApi>(() => FakeEventApi());

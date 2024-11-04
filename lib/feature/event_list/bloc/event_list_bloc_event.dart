@@ -10,7 +10,7 @@ abstract class EventListBlocEvent {
   void when({
     required Function(Event) toggleFavorite,
   }) {
-    var event = this;
+    final event = this;
     if (event is _ToggleFavorite) {
       toggleFavorite(event.event);
     }

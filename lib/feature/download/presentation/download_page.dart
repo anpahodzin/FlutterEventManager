@@ -22,12 +22,12 @@ class _DownloadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<DownloadBloc>();
+    final bloc = context.read<DownloadBloc>();
 
     return StreamBuilder(
       stream: bloc.outState,
       builder: (context, snapshot) {
-        var state = snapshot.data;
+        final state = snapshot.data;
         debugPrint("stream ${snapshot.data}");
         if (state != null && !state.isLoading) {
           return Center(
@@ -35,7 +35,7 @@ class _DownloadPage extends StatelessWidget {
               onPressed: () {
                 bloc.inEvent.add(DownloadBlocEvent.download());
               },
-              child: const Text('Download'), // todo
+              child: const Text('Add events from file'), // todo
             ),
           );
         } else {

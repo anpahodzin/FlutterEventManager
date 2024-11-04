@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 class DetailsEventModule {
   static Future<void> initModule() async {
-    var getIt = GetIt.instance;
+    final getIt = GetIt.instance;
 
     // Bloc
     getIt.registerFactoryParam<DetailsEventBloc, Event?, void>((event, param) {

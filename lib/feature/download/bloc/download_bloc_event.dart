@@ -6,7 +6,7 @@ abstract class DownloadBlocEvent {
   void when({
     required Function() onDownload,
   }) {
-    var event = this;
+    final event = this;
     if (event is _DownloadEvents) {
       onDownload();
     }

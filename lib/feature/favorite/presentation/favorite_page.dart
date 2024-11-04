@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
+import 'package:flutter_event_manager/feature/event_list/domain/model/event.dart';
 import 'package:flutter_event_manager/feature/event_list/presentation/event_card.dart';
 import 'package:flutter_event_manager/feature/favorite/bloc/favorite_bloc.dart';
 import 'package:flutter_event_manager/feature/favorite/bloc/favorite_bloc_event.dart';
@@ -25,40 +26,60 @@ class _FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<FavoriteBloc>();
+    final bloc = context.read<FavoriteBloc>();
 
-    return StreamBuilder(
-      stream: bloc.outState,
-      builder: (context, snapshot) {
-        var state = snapshot.data;
-        debugPrint("stream ${snapshot.data}");
+    return Scaffold(
+      body: StreamBuilder(
+          stream: bloc.outState,
+          builder: (context, snapshot) {
+            final state = snapshot.data;
+            debugPrint("stream ${snapshot.data}");
 
-        if (state != null && state.favorites.isNotEmpty) {
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800), //todo
-              child: ListView.builder(
-                itemCount: state.favorites.length,
-                itemBuilder: (context, index) {
-                  return EventCard(
-                    event: state.favorites[index],
-                    onItemTap: (event) {
-                      context.push(Destination.routeDetails, extra: event);
-                    },
-                    onFavoriteTap: (event) {
-                      bloc.inEvent.add(
-                        FavoriteBlocEvent.toggleFavorite(event: event),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          );
-        } else {
-          return const Center(child: Text('The list is empty. Add event to favorites.')); // todo
-        }
-      },
+            if (state != null && state.favorites.isNotEmpty) {
+              return _body(
+                events: state.favorites,
+                onItemTap: (event) =>
+                    context.push(Destination.routeDetails, extra: event),
+                onFavoriteTap: (event) => bloc.inEvent
+                    .add(FavoriteBlocEvent.toggleFavorite(event: event)),
+              );
+            } else {
+              return _emptyBody();
+            }
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push(Destination.routeDetails);
+        },
+        tooltip: 'Create Event',
+        child: const Icon(Icons.add),
+      ),
     );
+  }
+
+  Widget _body({
+    required List<Event> events,
+    required Function(Event) onItemTap,
+    required Function(Event) onFavoriteTap,
+  }) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 800), //todo
+        child: ListView.builder(
+          itemCount: events.length,
+          itemBuilder: (context, index) {
+            return EventCard(
+              event: events[index],
+              onItemTap: onItemTap,
+              onFavoriteTap: onFavoriteTap,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _emptyBody() {
+    return const Center(child: Text('The list is empty. Add event to favorites.'));
   }
 }

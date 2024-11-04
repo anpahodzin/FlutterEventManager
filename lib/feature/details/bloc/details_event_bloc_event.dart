@@ -20,7 +20,7 @@ abstract class DetailsEventBlocEvent {
     required Function(String description) updateDescription,
     required Function(String location) updateLocation,
   }) {
-    var event = this;
+    final event = this;
     if (event is _ToggleEditMode) {
       toggleEditMode();
     }
