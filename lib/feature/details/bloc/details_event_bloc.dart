@@ -9,11 +9,13 @@ class DetailsEventBloc
     extends BlocBase<DetailsEventBlocState, Never, DetailsEventBlocEvent> {
   final Event _event;
   final EventRepository _repository;
+  final bool isNewEvent;
 
   DetailsEventBloc(
       {required EventRepository repository, required Event? initialEvent})
       : _repository = repository,
-        _event = initialEvent ?? Event.initial() {
+        _event = initialEvent ?? Event.initial(),
+        isNewEvent = initialEvent == null {
     _init();
   }
 
@@ -22,10 +24,11 @@ class DetailsEventBloc
       event.when(
         toggleEditMode: () async {
           final state = await outState.first;
-          inState.add(state.copyWith(isEditing: !state.isEditing));
+          inState.add(state.copyWith(isEditing: true));
         },
         saveEvent: () async {
           await _repository.updateEvent((await outState.first).event);
+          inState.add(state.copyWith(isEditing: false));
         },
         toggleFavorite: () async {
           final event = (await outState.first).event;
@@ -46,7 +49,11 @@ class DetailsEventBloc
       );
     });
 
-    inState.add(DetailsEventBlocState(event: _event, isEditing: false));
+    inState.add(DetailsEventBlocState(
+      event: _event,
+      isEditing: isNewEvent ? true : false,
+      isNewEvent: isNewEvent,
+    ));
   }
 
   void _updateEventState(Event Function(Event) block) async {

@@ -46,6 +46,7 @@ class _DetailEventContentState extends State<DetailEventContent> {
               context: context,
               isEditing: state.isEditing,
               isFavorite: state.event.isFavorite,
+              isNewEvent: state.isNewEvent,
               onSaveTap: () {
                 bloc.inEvent.add(DetailsEventBlocEvent.saveEvent());
               },
@@ -86,13 +87,17 @@ class _DetailEventContentState extends State<DetailEventContent> {
     required BuildContext context,
     required bool isEditing,
     required bool isFavorite,
+    required bool isNewEvent,
     required Function() onSaveTap,
     required Function() toggleEditMode,
     required Function() onFavoriteTap,
   }) {
+    final title = isNewEvent
+        ? "Create Event"
+        : (isEditing ? "Edit Event" : "Event Details");
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: Text(isEditing ? "Edit Item" : "Details Screen"), //todo
+      title: Text(title),
       leading: IconButton(
         onPressed: () {
           context.pop();
@@ -141,8 +146,8 @@ class _DetailEventContentState extends State<DetailEventContent> {
             children: [
               _editText(
                 isEditing: isEditing,
-                labelText: "Title",
                 //todo
+                labelText: "Title",
                 initialValue: event.title,
                 onTextChanged: onTitleChange,
                 style:
@@ -151,8 +156,8 @@ class _DetailEventContentState extends State<DetailEventContent> {
               const SizedBox(height: 8),
               _editText(
                 isEditing: isEditing,
-                labelText: "Description",
                 //todo
+                labelText: "Description",
                 initialValue: event.description,
                 onTextChanged: onDescriptionChange,
                 style: const TextStyle(fontSize: 16),
@@ -160,8 +165,8 @@ class _DetailEventContentState extends State<DetailEventContent> {
               const SizedBox(height: 8),
               _editText(
                 isEditing: isEditing,
-                labelText: "Location",
                 //todo
+                labelText: "Location",
                 initialValue: event.location,
                 onTextChanged: onLocationChange,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
