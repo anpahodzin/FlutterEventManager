@@ -16,7 +16,7 @@ class DownloadBloc
     outEvent.listen((event) {
       event.when(onDownload: () async {
         inState.add(const DownloadBlocState(isLoading: true));
-        await _repository.updateRemoteEvents(forceUpdate: true);
+        await _repository.addRemoteEvents();
         inState.add(const DownloadBlocState(isLoading: false));
       });
     });

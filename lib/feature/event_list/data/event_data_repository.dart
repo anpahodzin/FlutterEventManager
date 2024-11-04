@@ -23,6 +23,12 @@ class EventDataRepository extends EventRepository {
   }
 
   @override
+  Future<void> addRemoteEvents() async {
+    final events = await _remote.getRemoteEvents();
+    _eventsSubject.value = _eventsSubject.value.toList()..addAll(events);
+  }
+
+  @override
   Stream<List<Event>> getEventsStream() {
     return _eventsSubject.stream;
   }
