@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Flutter Event Manager") //todo
+        title: const Text("Flutter Event Manager")
       ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
@@ -41,15 +41,15 @@ class _MainPageState extends State<MainPage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.event_note),
-            label: 'Events', // todo
+            label: 'Events',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Favourite', // todo
+            label: 'Favourite',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.download),
-            label: 'Download', // todo
+            label: 'Download',
           ),
         ],
       ),
