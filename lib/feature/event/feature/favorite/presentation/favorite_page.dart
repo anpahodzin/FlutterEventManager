@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_event_manager/core/bloc/bloc_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
 import 'package:flutter_event_manager/feature/event/feature/event_list/presentation/event_card.dart';
 import 'package:flutter_event_manager/feature/event/feature/favorite/bloc/favorite_bloc.dart';
 import 'package:flutter_event_manager/feature/event/feature/favorite/bloc/favorite_bloc_event.dart';
+import 'package:flutter_event_manager/feature/event/feature/favorite/bloc/favorite_bloc_state.dart';
 import 'package:flutter_event_manager/navigation/main_router.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
@@ -15,33 +15,34 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      bloc: () => GetIt.instance.get<FavoriteBloc>(),
-      child: const _FavoritePage(),
+      create: (context) {
+        return GetIt.instance<FavoriteBloc>();
+      },
+      child: const _FavoriteContent(),
     );
   }
 }
 
-class _FavoritePage extends StatelessWidget {
-  const _FavoritePage({super.key});
+class _FavoriteContent extends StatelessWidget {
+  const _FavoriteContent();
 
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<FavoriteBloc>();
 
     return Scaffold(
-      body: StreamBuilder(
-          stream: bloc.outState,
-          builder: (context, snapshot) {
-            final state = snapshot.data;
-            debugPrint("stream ${snapshot.data}");
-
-            if (state != null && state.favorites.isNotEmpty) {
+      body: BlocBuilder(
+          bloc: bloc,
+          builder: (context, FavoriteBlocState state) {
+            if (state.favorites.isNotEmpty) {
               return _body(
                 events: state.favorites,
-                onItemTap: (event) =>
-                    context.push(Destination.routeDetails, extra: event),
-                onFavoriteTap: (event) => bloc.inEvent
-                    .add(FavoriteBlocEvent.toggleFavorite(event: event)),
+                onItemTap: (event) {
+                  context.push(Destination.routeDetails, extra: event);
+                },
+                onFavoriteTap: (event) {
+                  bloc.add(FavoriteToggleFavorite(event: event));
+                },
               );
             } else {
               return _emptyBody();
@@ -81,6 +82,7 @@ class _FavoritePage extends StatelessWidget {
   }
 
   Widget _emptyBody() {
-    return const Center(child: Text('The list is empty. Add event to favorites.'));
+    return const Center(
+        child: Text('The list is empty. Add event to favorites.'));
   }
 }

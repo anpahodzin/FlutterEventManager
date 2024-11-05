@@ -1,28 +1,21 @@
-import 'package:flutter_event_manager/core/bloc/bloc_base.dart';
 import 'package:flutter_event_manager/feature/event/domain/event_repository.dart';
 import 'package:flutter_event_manager/feature/event/feature/download/bloc/download_bloc_event.dart';
-import 'package:flutter_event_manager/feature/event/feature/download/bloc/download_bloc_single_state.dart';
+import 'package:flutter_event_manager/feature/event/feature/download/bloc/download_bloc_side_effect.dart';
 import 'package:flutter_event_manager/feature/event/feature/download/bloc/download_bloc_state.dart';
+import 'package:side_effect_bloc/side_effect_bloc.dart';
 
-class DownloadBloc extends BlocBase<DownloadBlocState, DownloadBlocSingleState,
-    DownloadBlocEvent> {
+class DownloadBloc extends SideEffectBloc<DownloadBlocEvent, DownloadBlocState,
+    DownloadBlocSideEffect> {
   final EventRepository _repository;
 
   DownloadBloc({required EventRepository repository})
-      : _repository = repository {
-    _init();
-  }
-
-  Future<void> _init() async {
-    outEvent.listen((event) {
-      event.when(onDownload: () async {
-        inState.add(const DownloadBlocState(isLoading: true));
-        await _repository.updateRemoteEvents();
-        inState.add(const DownloadBlocState(isLoading: false));
-        inSingleState.add(SuccessDownloadEventsSingleState());
-      });
+      : _repository = repository,
+        super(const DownloadBlocState(isLoading: false)) {
+    on<DownloadEventsFromFile>((event, emit) async {
+      emit.call(state.copyWith(isLoading: true));
+      await _repository.updateRemoteEvents();
+      emit.call(state.copyWith(isLoading: false));
+      produceSideEffect(SuccessDownloadEventsSideEffect());
     });
-
-    inState.add(const DownloadBlocState(isLoading: false));
   }
 }

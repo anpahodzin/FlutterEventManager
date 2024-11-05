@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_event_manager/feature/event/data/remote/event_api.dart';
 import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
@@ -16,8 +15,6 @@ class FakeEventApi extends EventApi {
     String jsonString = await rootBundle.loadString('assets/events.json');
 
     List<dynamic> jsonList = json.decode(jsonString);
-
-    debugPrint(jsonList.toString());
 
     return jsonList.map((json) => EventDto.fromJson(json).toDomain()).toList();
   }

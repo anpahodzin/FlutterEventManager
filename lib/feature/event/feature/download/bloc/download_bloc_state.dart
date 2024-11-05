@@ -7,4 +7,12 @@ class DownloadBlocState extends Equatable {
 
   @override
   List<Object?> get props => [isLoading];
+
+  DownloadBlocState copyWith({
+    bool? isLoading,
+  }) {
+    return DownloadBlocState(
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
 }

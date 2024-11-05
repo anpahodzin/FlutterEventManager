@@ -1,65 +1,15 @@
-import 'package:flutter_event_manager/core/extension.dart';
+sealed class DetailsEventBlocEvent {}
 
-abstract class DetailsEventBlocEvent {
-  DetailsEventBlocEvent._();
+final class DetailsEventToggleEditMode extends DetailsEventBlocEvent {}
 
-  factory DetailsEventBlocEvent.toggleEditMode() = _ToggleEditMode;
+final class DetailsEventSaveEvent extends DetailsEventBlocEvent {}
 
-  factory DetailsEventBlocEvent.saveEvent() = _SaveEvent;
+final class DetailsEventToggleFavorite extends DetailsEventBlocEvent {}
 
-  factory DetailsEventBlocEvent.toggleFavorite() = _ToggleFavorite;
-
-  factory DetailsEventBlocEvent.updateText(
-      {String? title, String? description, String? location}) = _UpdateText;
-
-  void when({
-    required Function() toggleEditMode,
-    required Function() saveEvent,
-    required Function() toggleFavorite,
-    required Function(String title) updateTitle,
-    required Function(String description) updateDescription,
-    required Function(String location) updateLocation,
-  }) {
-    final event = this;
-    if (event is _ToggleEditMode) {
-      toggleEditMode();
-    }
-    if (event is _SaveEvent) {
-      saveEvent();
-    }
-    if (event is _ToggleFavorite) {
-      toggleFavorite();
-    }
-    if (event is _UpdateText) {
-      event.title?.ifNotNull((it) {
-        updateTitle(it);
-      });
-      event.description?.ifNotNull((it) {
-        updateDescription(it);
-      });
-      event.location?.ifNotNull((it) {
-        updateLocation(it);
-      });
-    }
-  }
-}
-
-class _ToggleEditMode extends DetailsEventBlocEvent {
-  _ToggleEditMode() : super._();
-}
-
-class _SaveEvent extends DetailsEventBlocEvent {
-  _SaveEvent() : super._();
-}
-
-class _ToggleFavorite extends DetailsEventBlocEvent {
-  _ToggleFavorite() : super._();
-}
-
-class _UpdateText extends DetailsEventBlocEvent {
-  _UpdateText({this.title, this.description, this.location}) : super._();
-
+final class DetailsEventUpdateText extends DetailsEventBlocEvent {
   final String? title;
   final String? description;
   final String? location;
+
+  DetailsEventUpdateText({this.title, this.description, this.location});
 }

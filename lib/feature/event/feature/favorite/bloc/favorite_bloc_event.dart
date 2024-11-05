@@ -1,23 +1,15 @@
 import 'package:flutter_event_manager/feature/event/domain/model/event.dart';
 
-abstract class FavoriteBlocEvent {
-  FavoriteBlocEvent._();
+abstract class FavoriteBlocEvent {}
 
-  factory FavoriteBlocEvent.toggleFavorite({
-    required Event event,
-  }) = _ToggleFavorite;
+class FavoriteGetAllEvents extends FavoriteBlocEvent {
+  FavoriteGetAllEvents({required this.events});
 
-  void when({
-    required Function(Event) toggleFavorite,
-  }) {
-    final event = this;
-    if (event is _ToggleFavorite) {
-      toggleFavorite(event.event);
-    }
-  }
+  final List<Event> events;
 }
 
-class _ToggleFavorite extends FavoriteBlocEvent {
-  _ToggleFavorite({required this.event}) : super._();
+class FavoriteToggleFavorite extends FavoriteBlocEvent {
+  FavoriteToggleFavorite({required this.event});
+
   final Event event;
 }

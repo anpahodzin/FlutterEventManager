@@ -13,7 +13,7 @@ class EventListBlocState extends Equatable {
 
   EventListBlocState copyWith({List<Event>? eventList}) {
     return EventListBlocState(
-      eventList: eventList ?? List.from(this.eventList),
+      eventList: eventList ?? this.eventList,
     );
   }
 }

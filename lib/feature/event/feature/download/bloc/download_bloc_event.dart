@@ -1,18 +1,3 @@
-abstract class DownloadBlocEvent {
-  DownloadBlocEvent._();
+sealed class DownloadBlocEvent {}
 
-  factory DownloadBlocEvent.download() = _DownloadEvents;
-
-  void when({
-    required Function() onDownload,
-  }) {
-    final event = this;
-    if (event is _DownloadEvents) {
-      onDownload();
-    }
-  }
-}
-
-class _DownloadEvents extends DownloadBlocEvent {
-  _DownloadEvents() : super._();
-}
+final class DownloadEventsFromFile extends DownloadBlocEvent {}

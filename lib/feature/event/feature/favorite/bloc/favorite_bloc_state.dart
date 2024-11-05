@@ -13,7 +13,7 @@ class FavoriteBlocState extends Equatable {
 
   FavoriteBlocState copyWith({List<Event>? favorites}) {
     return FavoriteBlocState(
-      favorites: favorites ?? List.from(this.favorites),
+      favorites: favorites ?? this.favorites,
     );
   }
 }
