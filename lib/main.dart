@@ -4,7 +4,6 @@ import 'package:flutter_event_manager/core/di/main_module.dart';
 import 'navigation/main_router.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   MainModule.initModule();
   runApp(const MyApp());
 }
